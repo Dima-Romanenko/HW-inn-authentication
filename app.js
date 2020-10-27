@@ -9,6 +9,8 @@ let dataPreparation = (data) => {
   return numbers;
 };
 
+let gender = (data) => (data[8] % 2 == 0 ? "female" : "male");
+
 let checkInn = (data, f) => {
   let inn = f(data);
   let controlSum = 0;
@@ -20,6 +22,9 @@ let checkInn = (data, f) => {
   }
 
   (controlSum % 11) % 10 == inn[9] ? console.log(true) : console.log(false);
+
+  console.log(gender(inn));
+  
   console.log((controlSum % 11) % 10, inn[9]);
 };
 checkInn(value, dataPreparation);
