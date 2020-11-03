@@ -36,12 +36,53 @@ let checkInn = (data, f) => {
   }
 };
 
+// Функция определяюцая дату рождения
+
+let defineDate = (innCode) => {
+  let controlInnDate = new Date(1900, 1, 1);
+  let controlJsDate = new Date(1970, 1, 1);
+
+  let controlDate =
+    (controlInnDate.getTime() - controlJsDate.getTime()) / 1000 / 60 / 60 / 24;
+  controlDate = innCode - controlDate;
+  controlDate = controlDate * 24 * 60 * 60 * 24;
+  let date = new Date();
+  date.setTime(controlDate);
+  return date;
+};
+
+let birthDay = () => {
+  let bDay = defineDate(innCodeForDate(value));
+  return bDay.toLocaleDateString();
+};
+
+// Определяем количество полных лет
+
+let defineFullYear = () => {
+  let now = new Date(2020, 9, 03);
+  let currentDate = defineDate(innCodeForDate(value));
+  currentDate = now.getFullYear() - currentDate.getFullYear();
+  return currentDate;
+};
+
+// Получаеь пятизначное число для даты
+
+let innCodeForDate = (numbers) => {
+  let innCode = "";
+  for (let i = 0; i <= 4; i++) {
+    innCode += numbers[i];
+  }
+  return innCode;
+};
+
 // Создаем обьект с результатом проверки
 
 let createResultObject = () => {
   return {
     gender: gender(value),
     exist: checkInn(value, dataPreparation),
+    birthDay: birthDay(),
+    fullYear: defineFullYear(),
   };
 };
 
@@ -57,8 +98,10 @@ let outputData = (res) => {
   `;
   res.exist
     ? (outputBox.innerHTML += `
-  <span>Пол: <strong>${result.gender}</strong></span></br>
+  <span>Пол: <strong>${result.gender}</strong></span>
   <span>Статус: <strong>существует</strong></span>
+  <span>Дата рождения: <strong>${result.birthDay}</strong></span>
+  <span>Полных лет: <strong>${result.fullYear}</strong></span>
   `)
     : (outputBox.innerHTML += `
   <span>Статус: <strong>не существует</strong></span>
