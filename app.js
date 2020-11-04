@@ -39,13 +39,12 @@ let checkInn = (data, f) => {
 // Функция определяюцая дату рождения
 
 let defineDate = (innCode) => {
-  let controlInnDate = new Date(1900, 1, 1);
-  let controlJsDate = new Date(1970, 1, 1);
+  let controlInnDate = new Date(1900, 0, 1, 0, 0, 0);
 
-  let controlDate =
-    (controlInnDate.getTime() - controlJsDate.getTime()) / 1000 / 60 / 60 / 24;
-  controlDate = innCode - controlDate;
-  controlDate = controlDate * 24 * 60 * 60 * 24;
+  innCode = innCode * 24 * 60 * 60 * 1000;
+
+  let controlDate = innCode - controlInnDate.getTime() * -1;
+
   let date = new Date();
   date.setTime(controlDate);
   return date;
