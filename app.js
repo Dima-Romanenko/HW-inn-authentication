@@ -39,7 +39,7 @@ let checkInn = (data, f) => {
 // Функция определяюцая дату рождения
 
 let defineDate = (innCode) => {
-  let controlInnDate = new Date(1900, 0, 1, 0, 0, 0);
+  let controlInnDate = new Date(1899, 11, 31, 0, 0, 0);
 
   innCode = innCode * 24 * 60 * 60 * 1000;
 
