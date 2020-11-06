@@ -39,7 +39,7 @@ let checkInn = (data, f) => {
 // Функция определяюцая дату рождения
 
 let defineDate = (innCode) => {
-  let controlInnDate = new Date(1899, 11, 31, 0, 0, 0);
+  let controlInnDate = new Date(1899, 11, 31, 12, 0, 0);
 
   innCode = innCode * 24 * 60 * 60 * 1000;
 
@@ -58,9 +58,9 @@ let birthDay = () => {
 // Определяем количество полных лет
 
 let defineFullYear = () => {
-  let now = new Date(2020, 9, 03);
+  let now = new Date();
   let currentDate = defineDate(innCodeForDate(value));
-  currentDate = now.getFullYear() - currentDate.getFullYear();
+  console.log(now.getFullYear(), currentDate.getFullYear());
   return currentDate;
 };
 
